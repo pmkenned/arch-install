@@ -29,6 +29,18 @@ if [ "$STEPS_DONE" -eq 0 ]; then
     echo "  mkdir /mnt/home"
     echo "  mount /dev/sdb1 /mnt/home"
     echo ""
+    echo "4. Install System"
+    echo "  pacman --needed -Syy archlinux-keyring parabola-keyring"
+    echo "  pacstrap /mnt base"
+    echo "  pacstrap /mnt linux-libre-lte"
+    echo "  pacstrap /mnt networkmanager"
+    echo "  pacstrap /mnt parabola-base"
+    echo "  pacstrap /mnt grub"
+    echo "  pacstrap /mnt syslinux"
+    echo "  pacstrap /mnt git vim"
+    echo "  genfstab -p /mnt >> /mnt/etc/fstab"
+    echo "  arch-chroot /mnt"
+    echo ""
     echo "Once these steps have been completed, set STEPS_DONE above to 1"
     exit
 fi
@@ -36,19 +48,6 @@ fi
 echo "Proceeding with installation..."
 
 set -x
-
-# Install System
-pacman --needed -Syy archlinux-keyring parabola-keyring
-pacstrap /mnt base
-pacstrap /mnt linux-libre-lte
-pacstrap /mnt networkmanager
-pacstrap /mnt parabola-base
-pacstrap /mnt grub
-pacstrap /mnt syslinux
-pacstrap /mnt git vim
-
-genfstab -p /mnt >> /etc/fstab
-arch-chroot /mnt
 
 echo "127.0.0.1     localhost" >> /etc/hosts
 echo "::1           localhost" >> /etc/hosts
