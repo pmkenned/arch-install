@@ -60,9 +60,7 @@ echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
 locale-gen
 
-pacman -S --noconfirm base-devel sudo xorg-server xorg-apps libxinerama libxft mesa xf86-video-nouveau gnu-free-fonts
-
-systemctl enable NetworkManager.service
+pacman -S --noconfirm base-devel sudo xorg-server xorg-apps xorg-xinit libxinerama libxft mesa xf86-video-nouveau gnu-free-fonts
 
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -73,5 +71,8 @@ echo paul:password | chpasswd
 
 pacman --needed -Syy archlinux-keyring parabola-keyring
 pacman -Syu
+
+visudo
+systemctl enable NetworkManager.service
 
 echo "Done. Now: exit; umount -a; reboot"
